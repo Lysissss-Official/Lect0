@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <thread>
-#include "../lib/ST7306_LCD/ST7306_LCD.h"
+#include "ST7306_LCD.h"
+#include "LocalAppMgr.h"
+#include "ClockApp.h"
 
 
 #define display st7306Lcd
@@ -109,6 +111,16 @@ void st7306_test() {
     vTaskDelay(500);
 }
 
+void registerApps() {
+    auto& appManager = AppMgr::getInstance();
+
+    // 注册应用
+    appManager.registerApp(std::make_shared<ClockApp>());
+
+    // 启动默认应用
+    appManager.startApp("Clock");
+}
+
 void setup() {
 // write your initialization code here
     //Serial.begin(115200);
@@ -116,9 +128,12 @@ void setup() {
     display.begin();
     st7306_test();
     st7306_test1();
+    registerApps();
 }
 
 int a;
+
+
 
 void loop() {
 // write your code here
@@ -126,5 +141,11 @@ void loop() {
     //scanf("%d",&a);
     printf("%d\n",a);
     //Serial.println("[main] LCD has been refreshed.");
-    sleep(1);
+    auto& appManager = AppMgr::getInstance();
+
+    // 更新当前应用
+    appManager.update();
+    appManager.draw();
+
+    delay(100);
 }
