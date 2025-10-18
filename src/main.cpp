@@ -3,6 +3,9 @@
 #include "ST7306_LCD.h"
 #include "LocalAppMgr.h"
 #include "ClockApp.h"
+#include "FontBase.h"
+#include "font_20.h"
+#include "UIFont.h"
 
 
 #define display st7306Lcd
@@ -137,7 +140,7 @@ int a;
 
 void loop() {
 // write your code here
-    lcd_1.refreshReal();
+    //lcd_1.refreshReal();
     //scanf("%d",&a);
     printf("%d\n",a);
     //Serial.println("[main] LCD has been refreshed.");

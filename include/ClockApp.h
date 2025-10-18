@@ -5,7 +5,12 @@
 #ifndef CLOCK_APP_H
 #define CLOCK_APP_H
 
+#include "ST7306_LCD.h"
 #include "AppBase.h"
+#include "UIFont.h"
+#include "font_80.h"
+#include "font_48.h"
+#include "font_20.h"
 #include <WiFi.h>
 
 const char* ssid = "Mao Plus";
@@ -36,6 +41,10 @@ public:
         //    printf("Connecting to WiFi...");
         //}
         printf("%d", lastUpdate);
+        st7306Lcd.fillScreen(0x0000);
+        drawFontChar(st7306Lcd, 60, 60, 0xFFFF, &f80, lastUpdate%10+48);
+        drawFontChar(st7306Lcd, 150, 60, 0xFFFF, &f48, (lastUpdate/10)%10+48);
+        st7306Lcd.refreshReal();
     }
 
     void onStart() override {

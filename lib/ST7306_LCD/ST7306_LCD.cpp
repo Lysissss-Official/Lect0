@@ -263,7 +263,7 @@ void ST7306_LCD::fillScreen(uint16_t color) {
         }
     }
     uint32_t t2 = esp_timer_get_time();
-    refreshReal();
+    //refreshReal();
     uint32_t t3 = esp_timer_get_time();
     printf("fast fillScreen cost %lu us refresh cost %lu us\n", t2 - t1, t3 - t2);
     
@@ -271,7 +271,7 @@ void ST7306_LCD::fillScreen(uint16_t color) {
 
 void ST7306_LCD::clearDisplay() {
     memset(frameBuffer, blankByte, fullByteSize);
-    refreshReal();
+    //refreshReal();
 }
 
 void ST7306_LCD::refresh() {
